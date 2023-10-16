@@ -8,7 +8,7 @@
     background-color: rgb(23, 23, 23);
     position: fixed;
     align-items: center;
-    display: flex;
+    display: none;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
 }
 
