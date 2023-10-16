@@ -54,12 +54,15 @@ class leader {
 function funcc(data) {
   for (let s of data.objects) {
     //each s is a senator object
-    fillSenArr(s);
-    partyCount(s.party); //seperate into parties
-    if (s.leadership_title != "null") {
-      leaderInfo(s);
+    partyCount(s.party);
+    if (s.leadership_title != null) {
+      fillLeaderArr(s);
     }
+    fillSenArr(s);
   }
+  generatePartyList();
+  generateLeaderList();
+  generateSenatorList();
 }
 
 function partyCount(p) {
@@ -76,10 +79,10 @@ function fillSenArr(s) {
     name,
     s.party,
     s.state,
-    s.gender,
+    s.person.gender,
     s.rank,
     s.extra.office,
-    s.birthday,
+    s.person.birthday,
     s.startdate,
     s.person.twitterid,
     s.person.youtubeid,
@@ -92,4 +95,52 @@ function fillLeaderArr(s) {
   let name = s.person.firstname + " " + s.person.lastname;
   const l = new leader(s.leadership_title, name, s.party);
   leaderArr.push(l);
+}
+
+function generatePartyList() {
+  for (p in parties) {
+    const newDiv = document.createElement("div");
+    const partyName = document.createElement("div");
+    const partyNum = document.createElement("div");
+    partyName.innerHTML = p;
+    partyNum.innerHTML = parties[p];
+    newDiv.appendChild(partyName);
+    newDiv.appendChild(partyNum);
+    document.getElementById("parties").appendChild(newDiv);
+  }
+}
+
+function generateLeaderList() {
+  for (l of leaderArr) {
+    //each l is a leader
+    const newRow = document.createElement("tr");
+    for (i in l) {
+      //each i is an attribute
+      const newEntry = document.createElement("td");
+      newEntry.innerHTML = l[i];
+      newRow.appendChild(newEntry);
+    }
+    document.getElementById("lTable").appendChild(newRow);
+  }
+}
+
+function generateSenatorList() {
+  for (s of senArr) {
+    //each s is a senator
+    const newRow = document.createElement("tr");
+    for (i in s) {
+      //each i is an attribute
+      const newEntry = document.createElement("td");
+      if (i == "website") {
+        const link = document.createElement("a");
+        link.href = s.website;
+        newEntry.appendChild(link); //this line isnt working for some reason
+        newEntry.innerHTML = link; //just to show the website for now
+      } else {
+        newEntry.innerHTML = s[i];
+      }
+      newRow.appendChild(newEntry);
+    }
+    document.getElementById("sTable").appendChild(newRow);
+  }
 }
