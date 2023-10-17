@@ -131,36 +131,48 @@ function generateLeaderList() {
       newEntry.innerHTML = l[a];
       newRow.appendChild(newEntry);
     }
-    document.getElementById("lTable").appendChild(newRow);
+    document.getElementById("LTable").appendChild(newRow);
   }
 }
 
 //creates html info table for senator div
 function generateSenatorList() {
+  //iterate by index instead of object so we can access the index of the array
   for (s of senArr) {
     //each s is a senator
     const newRow = document.createElement("tr");
-    newRow.addEventListener("click", senSelect(s)); //adding an onclick to select senators //DOES NOT WORK YET!!!!!----------------
+    //add a click event handler to each row
+    newRow.addEventListener("click", function () {
+      let parent = document.getElementById("STable");
+      //iterate through all parent tables children to find which one we clicked on as a number
+      for (c = 0; c < parent.childElementCount; c++) {
+        //once we find that number we can use it as an index for senArr to say which senator we are calling to Info.
+        if (parent.children[c] == newRow) {
+          senSelect(senArr[c - 1]); // c-1 bc the array starts at 0, but the child count starts at 1
+        }
+      }
+    });
     for (a in s) {
+      if (a == "office") {
+        //dont want to add last 6 attributes to table
+        break;
+      }
       //each a is an attribute
       const newEntry = document.createElement("td");
-      //create a link instead of just write info in for website
-      if (a == "website") {
-        const link = document.createElement("a");
-        link.text = s.website;
-        link.href = s.website;
-        newEntry.appendChild(link);
-      } else {
-        newEntry.innerHTML = s[a];
-      }
+      newEntry.innerHTML = s[a];
       newRow.appendChild(newEntry);
     }
-    document.getElementById("sTable").appendChild(newRow);
+    document.getElementById("STable").appendChild(newRow);
   }
 }
 
-//DOES NOT WORK YET!!!!!----------------
 //read sentor data and fill in Info div
 function senSelect(s) {
-  console.log("test");
+  document.getElementById("office").innerHTML = s.office;
+  document.getElementById("startdate").innerHTML = s.startdate;
+  document.getElementById("twitterid").innerHTML = s.twitterid;
+  document.getElementById("youtubeid").innerHTML = s.youtubeid;
+  const web = document.getElementById("website");
+  web.href = s.website;
+  web.textContent = s.website;
 }
