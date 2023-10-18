@@ -2,14 +2,14 @@
 fetch("../JSON/senators.json")
   .then((response) => {
     if (!response.ok) {
-      throw new Error(`HTTP Error: status ${response.status}`);
+      throw new Error('Network Response Problem');
     }
     return response.json(); //parse JSON data
   })
   .then((data) => func(data)) //if everything is good send JSON objects to func
   .catch((error) => {
-    console.error("Error:", error); //send the error to the console
-    alert("Error:", error);
+    console.error(error); //send the error to the console
+    alert(error);
   });
 
 //3 globals
@@ -66,12 +66,16 @@ function func(data) {
     }
     fillSenArr(s);
   }
+  //send both arrays to sorting function to group by party
+  attributeSort(leaderArr, "party")
+  attributeSort(senArr, "party")
   //these 3 functions use global arrays/objects so no need to pass anything in
   generatePartyList();
   generateLeaderList();
   generateSenatorList();
 }
 
+//POPULATING 3 GLOBALS FUNCTIONS
 //creates object attributes for each party and has Senator count as value
 function partyCount(p) {
   if (Object.keys(parties).includes(p)) {
@@ -81,6 +85,13 @@ function partyCount(p) {
   }
 }
 
+//passes in JSON data to create new Leader objects and pushes to leaderArr
+function fillLeaderArr(s) {
+  let name = s.person.firstname + " " + s.person.lastname;
+  const l = new leader(s.leadership_title, name, s.party);
+  leaderArr.push(l);
+}
+
 //passes in JSON data to create new Senator objects and pushes to senArr
 function fillSenArr(s) {
   let name = s.person.firstname + " " + s.person.lastname;
@@ -88,8 +99,8 @@ function fillSenArr(s) {
     name,
     s.party,
     s.state,
-    s.person.gender,
-    s.senator_rank,
+    s.person.gender_label,
+    s.senator_rank_label,
     s.extra.office,
     s.person.birthday,
     s.startdate,
@@ -98,13 +109,6 @@ function fillSenArr(s) {
     s.website
   );
   senArr.push(sen);
-}
-
-//passes in JSON data to create new Leader objects and pushes to leaderArr
-function fillLeaderArr(s) {
-  let name = s.person.firstname + " " + s.person.lastname;
-  const l = new leader(s.leadership_title, name, s.party);
-  leaderArr.push(l);
 }
 
 //creates html elements for party div
@@ -177,3 +181,20 @@ function senSelect(s) {
   web.href = s.website;
   web.textContent = s.website;
 }
+
+//FUNCTION TO SORT BY ATTRIBUTE
+function attributeSort(arr, attr) {
+  arr.sort((a, b) => {
+    const a1 = a[attr];
+    const b2 = b[attr];
+    if (a1 < b2) {
+      return -1;
+    }
+    if (a1 > b2) {
+      return 1;
+    }
+    return 0;
+  });
+}
+  
+  
