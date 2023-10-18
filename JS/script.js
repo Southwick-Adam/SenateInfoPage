@@ -2,7 +2,7 @@
 fetch("../JSON/senators.json")
   .then((response) => {
     if (!response.ok) {
-      throw new Error('Network Response Problem');
+      throw new Error("Network Response Problem");
     }
     return response.json(); //parse JSON data
   })
@@ -12,12 +12,33 @@ fetch("../JSON/senators.json")
     alert(error);
   });
 
-//3 globals
-let senArr = []; //array for holding new senator obj
-let leaderArr = []; //array for holding new leader obj
-let parties = {}; //object to act like dictionary and hold party names as keys and counts as values.
+//function we send JSON objects to
+function func(data) {
+  let leaderArr = [];
+  let senArr = [];
+  for (let s of data.objects) {
+    //s -> senator object
+    partyCount(s.party);
+    if (s.leadership_title != null) {
+      leaderArr.push(createLeaderObj(s));
+    }
+    senArr.push(createSenObj(s));
+  }
+  //send both arrays to sorting function to group by party
+  leaderArr = attributeSort(leaderArr, "party");
+  senArr = attributeSort(senArr, "party");
+  //send sorted senate data to global dictionary
+  populateSenDict(senArr);
+  //functions to interact with html
+  generatePartyList();
+  generateLeaderList(leaderArr);
+  generateSenatorList(senArr);
+}
 
-//new senator class with all info we need to load onto page
+let senDict = {}; //dictionary of senators by sid
+let parties = {}; //dictionary of party size by party
+
+//new senator class with relavent info
 class senator {
   constructor(
     name,
@@ -30,7 +51,8 @@ class senator {
     startdate,
     twitterid,
     youtubeid,
-    website
+    website,
+    sid
   ) {
     this.name = name;
     this.party = party;
@@ -43,10 +65,11 @@ class senator {
     this.twitterid = twitterid;
     this.youtubeid = youtubeid;
     this.website = website;
+    this.sid = sid;
   }
 }
 
-//new leader class with all info we need to load onto page
+//new leader class with relavent info
 class leader {
   constructor(leadership_title, name, party) {
     this.leadership_title = leadership_title;
@@ -55,46 +78,23 @@ class leader {
   }
 }
 
-//function we send JSON objects to
-function func(data) {
-  for (let s of data.objects) {
-    //each s is a senator object
-    //we send JSON data to functions that populate our 3 globals
-    partyCount(s.party);
-    if (s.leadership_title != null) {
-      fillLeaderArr(s);
-    }
-    fillSenArr(s);
-  }
-  //send both arrays to sorting function to group by party
-  attributeSort(leaderArr, "party")
-  attributeSort(senArr, "party")
-  //these 3 functions use global arrays/objects so no need to pass anything in
-  generatePartyList();
-  generateLeaderList();
-  generateSenatorList();
-}
-
-//POPULATING 3 GLOBALS FUNCTIONS
-//creates object attributes for each party and has Senator count as value
+//creates object attributes for each party and has # of Senators as value
 function partyCount(p) {
   if (Object.keys(parties).includes(p)) {
     parties[p] += 1;
-  } else {
-    parties[p] = 1;
+    return;
   }
+  parties[p] = 1;
 }
 
-//passes in JSON data to create new Leader objects and pushes to leaderArr
-function fillLeaderArr(s) {
-  let name = s.person.firstname + " " + s.person.lastname;
+function createLeaderObj(s) {
+  const name = s.person.firstname + " " + s.person.lastname;
   const l = new leader(s.leadership_title, name, s.party);
-  leaderArr.push(l);
+  return l;
 }
 
-//passes in JSON data to create new Senator objects and pushes to senArr
-function fillSenArr(s) {
-  let name = s.person.firstname + " " + s.person.lastname;
+function createSenObj(s) {
+  const name = s.person.firstname + " " + s.person.lastname;
   const sen = new senator(
     name,
     s.party,
@@ -106,14 +106,23 @@ function fillSenArr(s) {
     s.startdate,
     s.person.twitterid,
     s.person.youtubeid,
-    s.website
+    s.website,
+    s.person.bioguideid
   );
-  senArr.push(sen);
+  return sen;
 }
 
-//creates html elements for party div
+function populateSenDict(senArr) {
+  for (s of senArr) {
+    //s -> senator Object
+    senDict[s.sid] = s;
+  }
+}
+
+//html for party div
 function generatePartyList() {
   for (p in parties) {
+    //p -> party name (key)
     const newDiv = document.createElement("div");
     const partyName = document.createElement("div");
     const partyNum = document.createElement("div");
@@ -125,13 +134,13 @@ function generatePartyList() {
   }
 }
 
-//creates html info table for leader div
-function generateLeaderList() {
+//html for leader div
+function generateLeaderList(leaderArr) {
   for (l of leaderArr) {
-    //each l is a leader
+    //l -> leader Object
     const newRow = document.createElement("tr");
     for (a in l) {
-      //each a is an attribute
+      //a -> attribute
       const newEntry = document.createElement("td");
       newEntry.innerHTML = l[a];
       newRow.appendChild(newEntry);
@@ -142,37 +151,34 @@ function generateLeaderList() {
 
 //creates html info table for senator div
 function generateSenatorList() {
-  //iterate by index instead of object so we can access the index of the array
-  for (s of senArr) {
-    //each s is a senator
+  for (s in senDict) {
+    //s -> senDict key
+    const senObj = senDict[s];
     const newRow = document.createElement("tr");
-    //add a click event handler to each row
+    //row ID = senator ID
+    newRow.setAttribute("id", senObj.sid);
+    //add click event handler to each row
     newRow.addEventListener("click", function () {
-      let parent = document.getElementById("STable");
-      //iterate through all parent tables children to find which one we clicked on as a number
-      for (c = 0; c < parent.childElementCount; c++) {
-        //once we find that number we can use it as an index for senArr to say which senator we are calling to Info.
-        if (parent.children[c] == newRow) {
-          senSelect(senArr[c - 1]); // c-1 bc the array starts at 0, but the child count starts at 1
-        }
-      }
+      senSelect(senDict[newRow.id]);
     });
-    for (a in s) {
+    for (a in senObj) {
+      //a -> attribute
       if (a == "office") {
-        //dont want to add last 6 attributes to table
+        //dont want to add last 6 attributes
         break;
       }
-      //each a is an attribute
+      //a -> attribute
       const newEntry = document.createElement("td");
-      newEntry.innerHTML = s[a];
+      newEntry.innerHTML = senObj[a];
       newRow.appendChild(newEntry);
     }
     document.getElementById("STable").appendChild(newRow);
   }
 }
 
-//read sentor data and fill in Info div
+//populate Info div : takes senator Object
 function senSelect(s) {
+  //s -> senator Object
   document.getElementById("office").innerHTML = s.office;
   document.getElementById("startdate").innerHTML = s.startdate;
   document.getElementById("twitterid").innerHTML = s.twitterid;
@@ -182,11 +188,13 @@ function senSelect(s) {
   web.textContent = s.website;
 }
 
-//FUNCTION TO SORT BY ATTRIBUTE
+//returns array sorted by attribute
 function attributeSort(arr, attr) {
+  //sort using compare function
   arr.sort((a, b) => {
     const a1 = a[attr];
     const b2 = b[attr];
+    //comparing party alphabetically
     if (a1 < b2) {
       return -1;
     }
@@ -195,5 +203,5 @@ function attributeSort(arr, attr) {
     }
     return 0;
   });
+  return arr;
 }
-  
