@@ -2,7 +2,7 @@
 fetch("../JSON/senators.json")
   .then((response) => {
     if (!response.ok) {
-      throw new Error('Network Response Problem');
+      throw new Error("Network Response Problem");
     }
     return response.json(); //parse JSON data
   })
@@ -67,8 +67,8 @@ function func(data) {
     fillSenArr(s);
   }
   //send both arrays to sorting function to group by party
-  attributeSort(leaderArr, "party")
-  attributeSort(senArr, "party")
+  attributeSort(leaderArr, "party");
+  attributeSort(senArr, "party");
   //these 3 functions use global arrays/objects so no need to pass anything in
   generatePartyList();
   generateLeaderList();
@@ -153,7 +153,8 @@ function generateSenatorList() {
       for (c = 0; c < parent.childElementCount; c++) {
         //once we find that number we can use it as an index for senArr to say which senator we are calling to Info.
         if (parent.children[c] == newRow) {
-          senSelect(senArr[c - 1]); // c-1 bc the array starts at 0, but the child count starts at 1
+          // c-1 bc the array starts at 0, but the child count starts at 1
+          senSelect(senArr[c - 1]);
         }
       }
     });
@@ -184,9 +185,11 @@ function senSelect(s) {
 
 //FUNCTION TO SORT BY ATTRIBUTE
 function attributeSort(arr, attr) {
+  //sort using compare funtion
   arr.sort((a, b) => {
     const a1 = a[attr];
     const b2 = b[attr];
+    //comparing party alphabetically
     if (a1 < b2) {
       return -1;
     }
@@ -196,5 +199,3 @@ function attributeSort(arr, attr) {
     return 0;
   });
 }
-  
-  
