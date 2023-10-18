@@ -1,5 +1,5 @@
 // Use the fetch() method to retrieve the JSON data
-fetch("./senators.json")
+fetch("../JSON/senators.json")
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP Error: status ${response.status}`);
@@ -9,6 +9,7 @@ fetch("./senators.json")
   .then((data) => func(data)) //if everything is good send JSON objects to func
   .catch((error) => {
     console.error("Error:", error); //send the error to the console
+    alert("Error:", error);
   });
 
 //3 globals
