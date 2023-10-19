@@ -9,7 +9,7 @@
       <img src="../assets/seal.png" alt="Senate Seal" />
       <h1>United States Senate Information</h1>
     </div>
-    <div id="gap"></div><!--temporary delete later when we work out teh styling we want-->
+    <div id="gap"></div><!--temporary delete later when we work out the styling we want-->
     <div id="parties">
       <h1>Parties</h1>
     </div>
@@ -17,6 +17,12 @@
       <table id="LTable">
         <th>Leaders List</th>
       </table>
+    </div>
+    <div id="filters">
+      <input type="text" id="partyFilter">
+      <input type="text" id="stateFilter">
+      <input type="text" id="rankFilter">
+      <button onclick="filter()">submit</button>
     </div>
     <div id="senators">
       <table id="STable">

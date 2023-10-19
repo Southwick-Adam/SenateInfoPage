@@ -24,7 +24,7 @@ function func(data) {
     }
     senArr.push(createSenObj(s));
   }
-  //send both arrays to sorting function to group by party
+  //send arrays to sorting function -> sort by party
   leaderArr = attributeSort(leaderArr, "party");
   senArr = attributeSort(senArr, "party");
   //send sorted senate data to global dictionary
@@ -33,6 +33,7 @@ function func(data) {
   generatePartyList();
   generateLeaderList(leaderArr);
   generateSenatorList(senArr);
+  return;
 }
 
 let senDict = {}; //dictionary of senators by sid
@@ -66,6 +67,7 @@ class senator {
     this.youtubeid = youtubeid;
     this.website = website;
     this.sid = sid;
+    this.row = null;
   }
 }
 
@@ -85,6 +87,7 @@ function partyCount(p) {
     return;
   }
   parties[p] = 1;
+  return;
 }
 
 function createLeaderObj(s) {
@@ -117,6 +120,7 @@ function populateSenDict(senArr) {
     //s -> senator Object
     senDict[s.sid] = s;
   }
+  return;
 }
 
 //html for party div
@@ -132,6 +136,7 @@ function generatePartyList() {
     newDiv.appendChild(partyNum);
     document.getElementById("parties").appendChild(newDiv);
   }
+  return;
 }
 
 //html for leader div
@@ -147,6 +152,7 @@ function generateLeaderList(leaderArr) {
     }
     document.getElementById("LTable").appendChild(newRow);
   }
+  return;
 }
 
 //creates html info table for senator div
@@ -172,8 +178,10 @@ function generateSenatorList() {
       newEntry.innerHTML = senObj[a];
       newRow.appendChild(newEntry);
     }
+    senObj.row = newRow;
     document.getElementById("STable").appendChild(newRow);
   }
+  return;
 }
 
 //populate Info div : takes senator Object
@@ -186,6 +194,7 @@ function senSelect(s) {
   const web = document.getElementById("website");
   web.href = s.website;
   web.textContent = s.website;
+  return;
 }
 
 //returns array sorted by attribute
@@ -204,4 +213,10 @@ function attributeSort(arr, attr) {
     return 0;
   });
   return arr;
+}
+
+function filter() {
+  const partyF = document.getElementById("partyFilter").value;
+  const stateF = document.getElementById("stateFilter").value;
+  const rankF = document.getElementById("rankFilter").value;
 }
