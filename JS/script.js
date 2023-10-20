@@ -179,6 +179,7 @@ function generateSenatorList() {
       newRow.appendChild(newEntry);
     }
     senObj.row = newRow;
+    newRow.setAttribute("class", "senateListRow");
     document.getElementById("STable").appendChild(newRow);
   }
   return;
@@ -215,8 +216,15 @@ function attributeSort(arr, attr) {
   return arr;
 }
 
-function filter() {
-  const partyF = document.getElementById("partyFilter").value;
-  const stateF = document.getElementById("stateFilter").value;
-  const rankF = document.getElementById("rankFilter").value;
+function filterParty() {
+  for (i of document.getElementsByClassName(("hideParty"))) {
+    i.classList.remove("hideParty");
+  }
+  PFval = document.getElementById("partyFilter").value;
+  for (s in senDict) {
+    const senObj = senDict[s];
+    if (senObj.party != PFval) {
+      document.getElementById(senObj.sid).classList.add("hideParty");
+    }
+  }
 }
