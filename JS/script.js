@@ -18,6 +18,7 @@ function func(data) {
   let senArr = [];
   for (let s of data.objects) {
     //s -> senator object
+    populateFilters(s.party, s.state, s.senator_rank_label);
     partyCount(s.party);
     if (s.leadership_title != null) {
       leaderArr.push(createLeaderObj(s));
@@ -38,6 +39,10 @@ function func(data) {
 
 let senDict = {}; //dictionary of senators by sid
 let parties = {}; //dictionary of party size by party
+
+let partyFilter = {};
+let stateFilter = {};
+let rankFilter = {};
 
 //new senator class with relavent info
 class senator {
@@ -88,6 +93,28 @@ function partyCount(p) {
   }
   parties[p] = 1;
   return;
+}
+
+function populateFilters(p, s, r) {
+  if (!Object.keys(partyFilter).includes(p)) {
+    partyFilter[p] = false;
+    addFilterOption(p, "PFlist");
+  }
+  if (!Object.keys(stateFilter).includes(s)) {
+    partyFilter[s] = false;
+    addFilterOption(s, "SFlist");
+  }
+  if (!Object.keys(rankFilter).includes(r)) {
+    rankFilter[r] = false;
+    addFilterOption(r, "RFlist");
+  }
+  return;
+}
+
+function addFilterOption(k, filter) {
+  const newLi = document.createElement("li");
+  newLi.innerHTML = k;
+  document.getElementById(filter).appendChild(newLi);
 }
 
 function createLeaderObj(s) {
@@ -216,8 +243,12 @@ function attributeSort(arr, attr) {
   return arr;
 }
 
+function filterPartyAdd(k) {
+  filterParty[k] = true;
+}
+
 function filterParty() {
-  for (i of document.getElementsByClassName(("hideParty"))) {
+  for (i of document.getElementsByClassName("hideParty")) {
     i.classList.remove("hideParty");
   }
   PFval = document.getElementById("partyFilter").value;

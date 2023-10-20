@@ -9,7 +9,8 @@
       <img src="../assets/seal.png" alt="Senate Seal" />
       <h1>United States Senate Information</h1>
     </div>
-    <div id="gap"></div><!--temporary delete later when we work out the styling we want-->
+    <div id="gap"></div>
+    <!--temporary delete later when we work out the styling we want-->
     <div id="parties">
       <h1>Parties</h1>
     </div>
@@ -20,13 +21,27 @@
     </div>
     <div id="filters">
       <h2>Filters</h2>
-      <input type="text" id="partyFilter">
-      <button onclick="filterParty()">party</button>
-      <input type="text" id="stateFilter">
-      <button onclick="filterState()">state</button>
-      <input type="text" id="rankFilter">
-      <button onclick="filterRank()">rank</button>
-      
+      <input
+        type="text"
+        id="partyFilter"
+        onkeyup="partyFilter()"
+        placeholder="Filter by Party"
+      />
+      <ul id="PFlist"></ul>
+      <input
+        type="text"
+        id="stateFilter"
+        onkeyup="stateFilter()"
+        placeholder="Filter by State"
+      />
+      <ul id="SFlist"></ul>
+      <input
+        type="text"
+        id="rankFilter"
+        onkeyup="rankFilter()"
+        placeholder="Filter by Rank"
+      />
+      <ul id="RFlist"></ul>
     </div>
     <div id="senators">
       <table id="STable">
