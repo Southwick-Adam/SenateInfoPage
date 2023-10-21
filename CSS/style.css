@@ -24,11 +24,21 @@ h1, h2 {
 #bar img {
     width: 80px;
     height: fit-content;
-    padding: 15px;
+    padding: 10px;
     padding-left: 25px;
     padding-right: 10;
 }
 
 #gap {
-    padding-top: 150px;
+    padding-top: 120px;
+}
+
+.partyHide {
+    display: none;
+}
+.stateHide {
+    display: none;
+}
+.rankHide {
+    display: none;
 }
