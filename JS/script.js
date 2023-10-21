@@ -19,7 +19,7 @@ function func(data) {
   for (let s of data.objects) {
     //s -> senator object
     populateFilters(s.party, s.state, s.senator_rank_label);
-    partyCount(s.party);
+    countPartyMembers(s.party);
     if (s.leadership_title != null) {
       leaderArr.push(createLeaderObj(s));
     }
@@ -40,9 +40,11 @@ function func(data) {
 let senDict = {}; //dictionary of senators by sid
 let parties = {}; //dictionary of party size by party
 
-let partyFilter = {};
-let stateFilter = {};
-let rankFilter = {};
+//dictionaries of filter options
+//key = option, value = bool (whether they are showing or not)
+let partyFilter = { all: true };
+let stateFilter = { all: true };
+let rankFilter = { all: true };
 
 //new senator class with relavent info
 class senator {
@@ -86,35 +88,14 @@ class leader {
 }
 
 //creates object attributes for each party and has # of Senators as value
-function partyCount(p) {
+//takes senator.party as argument
+function countPartyMembers(p) {
   if (Object.keys(parties).includes(p)) {
     parties[p] += 1;
     return;
   }
   parties[p] = 1;
   return;
-}
-
-function populateFilters(p, s, r) {
-  if (!Object.keys(partyFilter).includes(p)) {
-    partyFilter[p] = false;
-    addFilterOption(p, "PFlist");
-  }
-  if (!Object.keys(stateFilter).includes(s)) {
-    partyFilter[s] = false;
-    addFilterOption(s, "SFlist");
-  }
-  if (!Object.keys(rankFilter).includes(r)) {
-    rankFilter[r] = false;
-    addFilterOption(r, "RFlist");
-  }
-  return;
-}
-
-function addFilterOption(k, filter) {
-  const newLi = document.createElement("li");
-  newLi.innerHTML = k;
-  document.getElementById(filter).appendChild(newLi);
 }
 
 function createLeaderObj(s) {
@@ -142,6 +123,8 @@ function createSenObj(s) {
   return sen;
 }
 
+//adds new senate objects to the senate dictionary object
+//takes array of new senate objects as argument
 function populateSenDict(senArr) {
   for (s of senArr) {
     //s -> senator Object
@@ -212,7 +195,8 @@ function generateSenatorList() {
   return;
 }
 
-//populate Info div : takes senator Object
+//populate Info div
+//takes senator Object as argument
 function senSelect(s) {
   //s -> senator Object
   document.getElementById("office").innerHTML = s.office;
@@ -243,19 +227,91 @@ function attributeSort(arr, attr) {
   return arr;
 }
 
-function filterPartyAdd(k) {
-  filterParty[k] = true;
+//populate the 3 filters with options
+//takes senator.party, senator.state, senator.rank as arguments
+function populateFilters(p, s, r) {
+  if (!Object.keys(partyFilter).includes(p)) {
+    partyFilter[p] = false;
+    populateFilterOption(p, "PFlist");
+  }
+  if (!Object.keys(stateFilter).includes(s)) {
+    stateFilter[s] = false;
+    populateFilterOption(s, "SFlist");
+  }
+  if (!Object.keys(rankFilter).includes(r)) {
+    rankFilter[r] = false;
+    populateFilterOption(r, "RFlist");
+  }
+  return;
 }
 
-function filterParty() {
-  for (i of document.getElementsByClassName("hideParty")) {
-    i.classList.remove("hideParty");
+//creates list element, gives it an onClick function and adds to filter
+//takes senator.party/state/rank and the filterList ID as arguments
+function populateFilterOption(option, filterListID) {
+  const newLi = document.createElement("li");
+  newLi.innerHTML = option;
+  newLi.addEventListener("click", function () {
+    changeOptionInFilter(option, filterListID);
+  });
+  addOptionToFilter(option, filterListID);
+  document.getElementById(filterListID).appendChild(newLi);
+}
+
+//adds the selected option to appropriate filter dict
+//takes option as argument
+function addOptionToFilter(option, id) {
+  let dict;
+  if (id == "PFlist") {
+    dict = partyFilter;
+  } else if (id == "SFlist") {
+    dict = stateFilter;
+  } else if (id == "RFlist") {
+    dict = rankFilter;
   }
-  PFval = document.getElementById("partyFilter").value;
+  dict[option] = true;
+}
+
+function changeOptionInFilter(option, id) {
+  let dict;
+  let attr;
+  let hideClass;
+  if (id == "PFlist") {
+    dict = partyFilter;
+    attr = "party";
+    hideClass = "partyHide";
+  } else if (id == "SFlist") {
+    dict = stateFilter;
+    attr = "state";
+    hideClass = "stateHide";
+  } else if (id == "RFlist") {
+    dict = rankFilter;
+    attr = "rank";
+    hideClass = "rankHide";
+  }
+  if (dict.all) {
+    removeAllInFilter(dict);
+  }
+  dict[option] = !dict[option];
+  runFilter(dict, attr, hideClass);
+}
+
+//sets all options is filter to false
+//takes filter as argument
+function removeAllInFilter(dict) {
+  for (i in dict) {
+    dict[i] = false;
+  }
+}
+
+//goes through a filter list and hides anything not on it
+function runFilter(dict, attr, hideClass) {
   for (s in senDict) {
+    //s -> senDict key
     const senObj = senDict[s];
-    if (senObj.party != PFval) {
-      document.getElementById(senObj.sid).classList.add("hideParty");
+    if (dict[senObj[attr]]) {
+      document.getElementById(senObj.sid).classList.remove(hideClass);
+    } else {
+      document.getElementById(senObj.sid).classList.add(hideClass);
     }
   }
 }
