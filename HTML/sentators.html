@@ -27,21 +27,27 @@
         onkeyup="partyOption()"
         placeholder="Filter by Party"
       />
-      <ul id="PFlist"></ul>
+      <ul id="PFlist">
+        <li onclick="changeOptionInFilter('all', 'PFlist')">All</li>
+      </ul>
       <input
         type="text"
         id="stateFilter"
         onkeyup="stateOption()"
         placeholder="Filter by State"
       />
-      <ul id="SFlist"></ul>
+      <ul id="SFlist">
+        <li onclick="changeOptionInFilter('all', 'SFlist')">All</li>
+      </ul>
       <input
         type="text"
         id="rankFilter"
         onkeyup="rankOption()"
         placeholder="Filter by Rank"
       />
-      <ul id="RFlist"></ul>
+      <ul id="RFlist">
+        <li onclick="changeOptionInFilter('all', 'RFlist')">All</li>
+      </ul>
     </div>
     <div id="senators">
       <table id="STable">

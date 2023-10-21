@@ -28,12 +28,29 @@ function func(data) {
   //send arrays to sorting function -> sort by party
   leaderArr = attributeSort(leaderArr, "party");
   senArr = attributeSort(senArr, "party");
+  //sort filter lists
+  objectSort(partyFilter);
+  objectSort(stateFilter);
+  objectSort(rankFilter);
   //send sorted senate data to global dictionary
   populateSenDict(senArr);
   //functions to interact with html
   generatePartyList();
   generateLeaderList(leaderArr);
   generateSenatorList(senArr);
+  //generate filter list HTML
+  for (let pf in partyFilter) {
+    generateFilter(pf, "PFlist");
+  }
+  for (let sf in stateFilter) {
+    generateFilter(sf, "SFlist");
+  }
+  for (let rf in rankFilter) {
+    generateFilter(rf, "RFlist");
+  }
+  partyFilter.all = true 
+  stateFilter.all = true
+  rankFilter.all = true
   return;
 }
 
@@ -42,9 +59,9 @@ let parties = {}; //dictionary of party size by party
 
 //dictionaries of filter options
 //key = option, value = bool (whether they are showing or not)
-let partyFilter = { all: true };
-let stateFilter = { all: true };
-let rankFilter = { all: true };
+let partyFilter = {};
+let stateFilter = {};
+let rankFilter = {};
 
 //new senator class with relavent info
 class senator {
@@ -89,6 +106,7 @@ class leader {
 
 //creates object attributes for each party and has # of Senators as value
 //takes senator.party as argument
+
 function countPartyMembers(p) {
   if (Object.keys(parties).includes(p)) {
     parties[p] += 1;
@@ -126,7 +144,7 @@ function createSenObj(s) {
 //adds new senate objects to the senate dictionary object
 //takes array of new senate objects as argument
 function populateSenDict(senArr) {
-  for (s of senArr) {
+  for (let s of senArr) {
     //s -> senator Object
     senDict[s.sid] = s;
   }
@@ -135,7 +153,7 @@ function populateSenDict(senArr) {
 
 //html for party div
 function generatePartyList() {
-  for (p in parties) {
+  for (let p in parties) {
     //p -> party name (key)
     const newDiv = document.createElement("div");
     const partyName = document.createElement("div");
@@ -167,7 +185,7 @@ function generateLeaderList(leaderArr) {
 
 //creates html info table for senator div
 function generateSenatorList() {
-  for (s in senDict) {
+  for (let s in senDict) {
     //s -> senDict key
     const senObj = senDict[s];
     const newRow = document.createElement("tr");
@@ -227,48 +245,52 @@ function attributeSort(arr, attr) {
   return arr;
 }
 
+//TESTTESRT
+function objectSort(dict) {
+  const keys = Object.keys(dict);
+  keys.sort((a, b) => {
+    //comparing party alphabetically
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
+  });
+  for (let i in dict) {
+    delete dict[i];
+  }
+  for (let j of keys) {
+    dict[j] = true;
+  }
+  return;
+}
+
 //populate the 3 filters with options
 //takes senator.party, senator.state, senator.rank as arguments
 function populateFilters(p, s, r) {
   if (!Object.keys(partyFilter).includes(p)) {
-    partyFilter[p] = false;
-    populateFilterOption(p, "PFlist");
+    partyFilter[p] = true;
   }
   if (!Object.keys(stateFilter).includes(s)) {
-    stateFilter[s] = false;
-    populateFilterOption(s, "SFlist");
+    stateFilter[s] = true;
   }
   if (!Object.keys(rankFilter).includes(r)) {
-    rankFilter[r] = false;
-    populateFilterOption(r, "RFlist");
+    rankFilter[r] = true;
   }
   return;
 }
 
 //creates list element, gives it an onClick function and adds to filter
 //takes senator.party/state/rank and the filterList ID as arguments
-function populateFilterOption(option, filterListID) {
+function generateFilter(option, filterListID) {
   const newLi = document.createElement("li");
   newLi.innerHTML = option;
   newLi.addEventListener("click", function () {
     changeOptionInFilter(option, filterListID);
   });
-  addOptionToFilter(option, filterListID);
   document.getElementById(filterListID).appendChild(newLi);
-}
-
-//adds the selected option to appropriate filter dict
-//takes option as argument
-function addOptionToFilter(option, id) {
-  let dict;
-  if (id == "PFlist") {
-    dict = partyFilter;
-  } else if (id == "SFlist") {
-    dict = stateFilter;
-  } else if (id == "RFlist") {
-    dict = rankFilter;
-  }
-  dict[option] = true;
 }
 
 function changeOptionInFilter(option, id) {
@@ -288,24 +310,30 @@ function changeOptionInFilter(option, id) {
     attr = "rank";
     hideClass = "rankHide";
   }
+  if (option == "all") {
+    allInFilter(dict, true);
+    runFilter(dict, attr, hideClass);
+    return;
+  }
   if (dict.all) {
-    removeAllInFilter(dict);
+    allInFilter(dict, false);
   }
   dict[option] = !dict[option];
   runFilter(dict, attr, hideClass);
+  return;
 }
 
-//sets all options is filter to false
-//takes filter as argument
-function removeAllInFilter(dict) {
+//sets all options is filter to bool
+//takes filter and bool as argument
+function allInFilter(dict, bool) {
   for (i in dict) {
-    dict[i] = false;
+    dict[i] = bool;
   }
 }
 
 //goes through a filter list and hides anything not on it
 function runFilter(dict, attr, hideClass) {
-  for (s in senDict) {
+  for (let s in senDict) {
     //s -> senDict key
     const senObj = senDict[s];
     if (dict[senObj[attr]]) {
