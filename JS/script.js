@@ -69,7 +69,7 @@ let senDict = {}; //dictionary of senators by sid
 let parties = {}; //dictionary of party size by party
 
 //dictionaries of filter options
-//key = option, value = bool (whether they are showing or not)
+//key = option, value = bool (show -> true, hide -> false)
 let partyFilter = {};
 let stateFilter = {};
 let rankFilter = {};
