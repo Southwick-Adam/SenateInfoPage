@@ -25,13 +25,15 @@ function func(data) {
     }
     senArr.push(createSenObj(s));
   }
-  //send arrays to sorting function -> sort by party
+  //send leaders to sorting function -> sort by party
   leaderArr = attributeSort(leaderArr, "party");
+  //send senators to sorting function -> sort by state -> sort by party
+  senArr = attributeSort(senArr, "state");
   senArr = attributeSort(senArr, "party");
   //sort filter lists
-  objectSort(partyFilter);
-  objectSort(stateFilter);
-  objectSort(rankFilter);
+  filterKeySort(partyFilter);
+  filterKeySort(stateFilter);
+  filterKeySort(rankFilter);
   //send sorted senate data to global dictionary
   populateSenDict(senArr);
   //functions to interact with html
@@ -48,9 +50,18 @@ function func(data) {
   for (let rf in rankFilter) {
     generateFilter(rf, "RFlist");
   }
-  partyFilter.all = true 
-  stateFilter.all = true
-  rankFilter.all = true
+  //add 'all' atribute to each filter
+  partyFilter.all = true;
+  stateFilter.all = true;
+  rankFilter.all = true;
+
+  //TEST
+  //add selected counter to each filter
+  partyFilter.count = 0;
+  stateFilter.count = 0;
+  rankFilter.count = 0;
+  //END TEST
+
   return;
 }
 
@@ -106,7 +117,6 @@ class leader {
 
 //creates object attributes for each party and has # of Senators as value
 //takes senator.party as argument
-
 function countPartyMembers(p) {
   if (Object.keys(parties).includes(p)) {
     parties[p] += 1;
@@ -116,12 +126,16 @@ function countPartyMembers(p) {
   return;
 }
 
+//returns new leader object
+//takes JSON senator object as argument
 function createLeaderObj(s) {
   const name = s.person.firstname + " " + s.person.lastname;
   const l = new leader(s.leadership_title, name, s.party);
   return l;
 }
 
+//returns new senator object
+//takes JSON senator object as argument
 function createSenObj(s) {
   const name = s.person.firstname + " " + s.person.lastname;
   const sen = new senator(
@@ -245,8 +259,9 @@ function attributeSort(arr, attr) {
   return arr;
 }
 
-//TESTTESRT
-function objectSort(dict) {
+//sorts filters alphabettically by key
+//takes filter as input
+function filterKeySort(dict) {
   const keys = Object.keys(dict);
   keys.sort((a, b) => {
     //comparing party alphabetically
@@ -291,8 +306,11 @@ function generateFilter(option, filterListID) {
     changeOptionInFilter(option, filterListID);
   });
   document.getElementById(filterListID).appendChild(newLi);
+  return;
 }
 
+//add or remove an option from the filter list
+//takes option, and filter List id as argumentS
 function changeOptionInFilter(option, id) {
   let dict;
   let attr;
@@ -310,15 +328,28 @@ function changeOptionInFilter(option, id) {
     attr = "rank";
     hideClass = "rankHide";
   }
+  //if click all, show all
   if (option == "all") {
     allInFilter(dict, true);
     runFilter(dict, attr, hideClass);
     return;
   }
+  //if attribute all is true, hide all except new choice
   if (dict.all) {
     allInFilter(dict, false);
   }
   dict[option] = !dict[option];
+  //adding an option from the filter
+  if (dict[option]) {
+    dict.count += 1;
+    //removing an option to the filter
+  } else {
+    dict.count -= 1;
+    //if you remove all options automatically activate all
+    if (dict.count == 0) {
+      allInFilter(dict, true);
+    }
+  }
   runFilter(dict, attr, hideClass);
   return;
 }
@@ -329,6 +360,8 @@ function allInFilter(dict, bool) {
   for (i in dict) {
     dict[i] = bool;
   }
+  dict.count = 0;
+  return;
 }
 
 //goes through a filter list and hides anything not on it
@@ -342,4 +375,5 @@ function runFilter(dict, attr, hideClass) {
       document.getElementById(senObj.sid).classList.add(hideClass);
     }
   }
+  return;
 }
