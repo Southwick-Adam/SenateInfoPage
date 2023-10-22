@@ -54,6 +54,14 @@ function func(data) {
   partyFilter.all = true;
   stateFilter.all = true;
   rankFilter.all = true;
+
+  //TEST
+  //add selected counter to each filter
+  partyFilter.count = 0;
+  stateFilter.count = 0;
+  rankFilter.count = 0;
+  //END TEST
+
   return;
 }
 
@@ -320,15 +328,28 @@ function changeOptionInFilter(option, id) {
     attr = "rank";
     hideClass = "rankHide";
   }
+  //if click all, show all
   if (option == "all") {
     allInFilter(dict, true);
     runFilter(dict, attr, hideClass);
     return;
   }
+  //if attribute all is true, hide all except new choice
   if (dict.all) {
     allInFilter(dict, false);
   }
   dict[option] = !dict[option];
+  //adding an option from the filter
+  if (dict[option]) {
+    dict.count += 1;
+    //removing an option to the filter
+  } else {
+    dict.count -= 1;
+    //if you remove all options automatically activate all
+    if (dict.count == 0) {
+      allInFilter(dict, true);
+    }
+  }
   runFilter(dict, attr, hideClass);
   return;
 }
@@ -339,6 +360,7 @@ function allInFilter(dict, bool) {
   for (i in dict) {
     dict[i] = bool;
   }
+  dict.count = 0;
   return;
 }
 
