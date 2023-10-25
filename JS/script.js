@@ -300,7 +300,17 @@ function populateFilters(p, s, r) {
 //creates list element, gives it an onClick function and adds to filter
 //takes senator.party/state/rank and the filterList ID as arguments
 function generateFilter(option, filterListID) {
+  let addClass;
+  if (filterListID == "PFlist") {
+    addClass = "partyDrop";
+  } else if (filterListID == "SFlist") {
+    addClass = "stateDrop";
+  } else if (filterListID == "RFlist") {
+    addClass = "rankDrop";
+  }
   const newLi = document.createElement("li");
+  newLi.classList.add(addClass);
+  newLi.classList.add("filterDrop");
   newLi.innerHTML = option;
   newLi.addEventListener("click", function () {
     changeOptionInFilter(option, filterListID);
@@ -378,6 +388,12 @@ function runFilter(dict, attr, hideClass) {
   return;
 }
 
+//open/close dropdown menus for filters
+function filterBtn(listID) {
+  document.getElementById(listID).classList.toggle("show");
+  return;
+}
+
 //triggered by text in the search bar
 //filters to options starting with that letter
 function searchOption(bar, list) {
@@ -391,4 +407,38 @@ function searchOption(bar, list) {
       li[i].style.display = "none";
     }
   }
+  return;
 }
+
+//EVENT HANDLERS
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (event) {
+  if (document.getElementsByClassName("show").length == 0) {
+    return;
+  }
+  //party
+  let dropdownP = document.getElementById("partyFilterDiv");
+  if (
+    !event.target.matches(".partyDrop") &&
+    dropdownP.classList.contains("show")
+  ) {
+    dropdownP.classList.remove("show");
+  }
+  //state
+  let dropdownS = document.getElementById("stateFilterDiv");
+  if (
+    !event.target.matches(".stateDrop") &&
+    dropdownS.classList.contains("show")
+  ) {
+    dropdownS.classList.remove("show");
+  }
+  //rank
+  let dropdownR = document.getElementById("rankFilterDiv");
+  if (
+    !event.target.matches(".rankDrop") &&
+    dropdownR.classList.contains("show")
+  ) {
+    dropdownR.classList.remove("show");
+  }
+  return;
+};
