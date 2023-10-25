@@ -377,3 +377,18 @@ function runFilter(dict, attr, hideClass) {
   }
   return;
 }
+
+//triggered by text in the search bar
+//filters to options starting with that letter
+function searchOption(bar, list) {
+  let input = document.getElementById(bar).value.toUpperCase();
+  let li = document.getElementById(list).getElementsByTagName("li");
+  for (let i = 0; i < li.length; i++) {
+    txtValue = li[i].innerText;
+    if (txtValue.toUpperCase().search(input) == 0) {
+      li[i].style.display = "block";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
