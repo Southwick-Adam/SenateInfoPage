@@ -91,6 +91,7 @@
 
 #LTable tr:nth-child(){
     background-color: rgb(229, 229, 229);
+}
   
 /*Filters*/ 
 .dropdownContent {
