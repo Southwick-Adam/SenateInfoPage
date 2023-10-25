@@ -20,20 +20,23 @@
       </table>
     </div>
     <div id="filters">
+      <h2>TEST FILTER</h2>
+      <div id="partyFilterDiv">
+        <input
+          type="text"
+          id="partyFilterSearchBar"
+          onkeyup="searchOption('partyFilterSearchBar', 'PFlist')"
+          placeholder="Filter by Party"
+        />
+        <ul id="PFlist">
+          <li onclick="changeOptionInFilter('all', 'PFlist')">All</li>
+        </ul>
+      </div>
       <h2>Filters</h2>
       <input
         type="text"
-        id="partyFilter"
-        onkeyup="partyOption()"
-        placeholder="Filter by Party"
-      />
-      <ul id="PFlist">
-        <li onclick="changeOptionInFilter('all', 'PFlist')">All</li>
-      </ul>
-      <input
-        type="text"
-        id="stateFilter"
-        onkeyup="stateOption()"
+        id="stateFilterSearchBar"
+        onkeyup="searchOption('stateFilterSearchBar', 'SFlist')"
         placeholder="Filter by State"
       />
       <ul id="SFlist">
@@ -41,8 +44,8 @@
       </ul>
       <input
         type="text"
-        id="rankFilter"
-        onkeyup="rankOption()"
+        id="rankFilterSearchBar"
+        onkeyup="searchOption('rankFilterSearchBar', 'RFlist')"
         placeholder="Filter by Rank"
       />
       <ul id="RFlist">
