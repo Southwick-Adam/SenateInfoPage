@@ -177,6 +177,20 @@ function generatePartyList() {
     newDiv.appendChild(partyName);
     newDiv.appendChild(partyNum);
     document.getElementById("parties").appendChild(newDiv);
+
+    newDiv.classList.add("newDiv");
+    partyNum.classList.add("partyNum");
+    
+    //party background colours
+    if (p === "Republican"){
+      newDiv.style.backgroundColor = "#FC6471";
+    }
+    if (p === "Democrat"){
+      newDiv.style.backgroundColor = "#3083DC";
+    }
+    if (p === "Independent"){
+        newDiv.style.backgroundColor = "#CEE0DC";
+    }
   }
   return;
 }
