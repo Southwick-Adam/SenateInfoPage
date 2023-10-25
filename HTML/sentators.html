@@ -9,7 +9,6 @@
       <img src="../assets/seal.png" alt="Senate Seal" />
       <h1>United States Senate Information</h1>
     </div>
-    <!--temporary delete later when we work out the styling we want-->
     <div id="gap"></div>
     <div>
       <h1>Parties</h1>
@@ -23,37 +22,63 @@
         </table>
       </div>
     </div>
+    <!--Filters-->
     <div id="filters">
       <h2>Filters</h2>
-      <div id="partyFilterDiv">
+      <!--Party Filter-->
+      <button onclick="filterBtn('partyFilterDiv')" class="partyDrop">
+        Filter By Party
+      </button>
+      <div id="partyFilterDiv" class="dropdownContent partyDrop">
         <input
           type="text"
           id="partyFilterSearchBar"
+          class="partyDrop"
           onkeyup="searchOption('partyFilterSearchBar', 'PFlist')"
           placeholder="Filter by Party"
         />
         <ul id="PFlist">
-          <li onclick="changeOptionInFilter('all', 'PFlist')">All</li>
+          <li onclick="changeOptionInFilter('all', 'PFlist')" class="partyDrop filterDrop">
+            <b>All</b>
+          </li>
         </ul>
       </div>
-      <input
-        type="text"
-        id="stateFilterSearchBar"
-        onkeyup="searchOption('stateFilterSearchBar', 'SFlist')"
-        placeholder="Filter by State"
-      />
-      <ul id="SFlist">
-        <li onclick="changeOptionInFilter('all', 'SFlist')">All</li>
-      </ul>
-      <input
-        type="text"
-        id="rankFilterSearchBar"
-        onkeyup="searchOption('rankFilterSearchBar', 'RFlist')"
-        placeholder="Filter by Rank"
-      />
-      <ul id="RFlist">
-        <li onclick="changeOptionInFilter('all', 'RFlist')">All</li>
-      </ul>
+      <!--State Filter-->
+      <button onclick="filterBtn('stateFilterDiv')" class="stateDrop">
+        Filter By State
+      </button>
+      <div id="stateFilterDiv" class="dropdownContent stateDrop">
+        <input
+          type="text"
+          id="stateFilterSearchBar"
+          class="stateDrop"
+          onkeyup="searchOption('stateFilterSearchBar', 'SFlist')"
+          placeholder="Filter by State"
+        />
+        <ul id="SFlist">
+          <li onclick="changeOptionInFilter('all', 'SFlist')" class="stateDrop filterDrop">
+            <b>All</b>
+          </li>
+        </ul>
+      </div>
+      <!--Rank Filter-->
+      <button onclick="filterBtn('rankFilterDiv')" class="rankDrop">
+        Filter By Rank
+      </button>
+      <div id="rankFilterDiv" class="dropdownContent rankDrop">
+        <input
+          type="text"
+          id="rankFilterSearchBar"
+          class="rankDrop"
+          onkeyup="searchOption('rankFilterSearchBar', 'RFlist')"
+          placeholder="Filter by Rank"
+        />
+        <ul id="RFlist">
+          <li onclick="changeOptionInFilter('all', 'RFlist')" class="rankDrop filterDrop">
+            <b>All</b>
+          </li>
+        </ul>
+      </div>
     </div>
     <div id="senators">
       <table id="STable">
