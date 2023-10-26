@@ -1,25 +1,24 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 /*Top Bar*/
 #bar {
-    width: 100%;
-    background-color: rgb(23, 23, 23);
-    position: fixed;
-    align-items: center;
-    display: flex;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+  width: 100%;
+  background-color: rgb(23, 23, 23);
+  position: fixed;
+  align-items: center;
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
 }
 
 #bar h1 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-align: center;
-    padding: 2%;
-
+  text-align: center;
+  padding: 10px;
 }
- 
+
 #bar h1 {
   color: white;
   padding: 20px;
@@ -34,10 +33,10 @@
 }
 
 .gap {
-    padding-top: 120px;
+  padding-top: 120px;
 }
 
-/*Hide Classes*/ 
+/*Hide Classes*/
 .partyHide {
   display: none;
 }
@@ -48,58 +47,62 @@
   display: none;
 }
 
-#parties { 
-    display: flex;
-    width: 100%;
+#parties {
+  display: flex;
+  width: 100%;
 }
+
 .newDiv {
-    border: 4px solid black;
-    margin: 1%;
-    padding: 2%;
-    flex: 1;
-    text-align: center;
-    line-height: 200%;
-    font-size: xx-large;
+  border: 4px solid black;
+  margin: 25px;
+  padding: 10px;
+  flex: 1;
+  text-align: center;
+  line-height: 200%;
+  font-size: xx-large;
 }
 
 .partyNum {
-    font-size:xxx-large;
-    font-family: Georgia, 'Times New Roman', Times, serif
+  font-size: xxx-large;
 }
 
 /*Leaders Table*/
 #leaders {
-    display: flex;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: large;
+  margin: 25px;
+  border: 4px solid;
+  border-collapse: collapse;
 }
 
 #LTable {
-    border: 4px solid;
-    margin: 2%;
-    padding: 10px;
-    border-collapse: collapse;
-    width: 100%;
+  padding: 20px;
+  width: 100%;
 }
 
 #LTable tr {
-    padding: 10px;
+  padding: 10px;
 }
 
 #LTable td {
-    padding: 3px;
+  padding: 10px;
+  padding-left: 25px;
 }
 
-#LTable tr:nth-child(){
-    background-color: rgb(229, 229, 229);
+#LTable tr:nth-child(even) {
+  background-color: rgb(229, 229, 229);
 }
 
-/*Senate div (filters, senate list, info box)*/ 
+/*Senate div (filters, senate list, info box)*/
 #senators {
-  margin: 2%;
+  margin: 25px;
   display: flex;
 }
-  
-/*Filters*/ 
+
+/*Filters*/
+ul {
+  list-style-type: none;
+}
+
 #filters {
   display: block;
 }
@@ -109,6 +112,8 @@
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
+  max-height: 300px;
+  overflow-y: scroll;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -118,7 +123,7 @@
 }
 
 .filterDrop {
-    padding: 5px;
+  padding: 5px;
 }
 
 .filterDrop:hover {
@@ -127,17 +132,28 @@
 
 /*Senate Table*/
 #STable {
+  font-size: larger;
   display: block;
-  max-height: 500px;
-  overflow: scroll;
+  max-height: 650px;
+  padding: 20px;
+  overflow-y: scroll;
   border: 4px solid;
-  padding: 10px;
   border-collapse: collapse;
   width: fit-content;
 }
 
+#STable tr {
+  padding: 10px;
+}
+
+#STable td {
+  padding: 10px;
+  padding-left: 25px;
+}
+
 /*Info Box*/
 #info {
+  font-size: larger;
   display: block;
   border: 4px solid;
   padding: 10px;
