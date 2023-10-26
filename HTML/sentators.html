@@ -14,18 +14,18 @@
     <div class="gap"></div>
     <!--Parties Section-->
     <div>
-      <h1>Parties</h1>
+      <h1 class="title">Parties</h1>
       <div id="parties"></div>
     </div>
     <!--Leaders Section-->
     <div>
-      <h1>Senate Leaders</h1>
+      <h1 class="title">Senate Leaders</h1>
       <div id="leaders">
         <table id="LTable"></table>
       </div>
     </div>
     <!--Senator Div-->
-    <h1>Senate Leaders</h1>
+    <h1 class="title">Senators</h1>
     <div id="senators">
       <!--Filters-->
       <div id="filters">
@@ -50,6 +50,7 @@
             </li>
           </ul>
         </div>
+        <br />
         <!--State Filter-->
         <button onclick="filterBtn('stateFilterDiv')" class="stateDrop">
           Filter By State
@@ -71,6 +72,7 @@
             </li>
           </ul>
         </div>
+        <br />
         <!--Rank Filter-->
         <button onclick="filterBtn('rankFilterDiv')" class="rankDrop">
           Filter By Rank
@@ -95,7 +97,13 @@
       </div>
       <!--Senator List-->
       <table id="STable">
-        <th>Senators List</th>
+        <tr id="header">
+          <td><b>Name</b></td>
+          <td><b>Party</b></td>
+          <td><b>State</b></td>
+          <td><b>Gender</b></td>
+          <td><b>Rank</b></td>
+        </tr>
       </table>
       <!--Senator Info window-->
       <div id="info">
@@ -108,7 +116,6 @@
         <a id="website"></a>
       </div>
     </div>
-    <div class="gapBottom"></div>
     <footer>Adam Southwick & Ellen Doreghty. 2023</footer>
   </body>
   <script src="../JS/script.js"></script>

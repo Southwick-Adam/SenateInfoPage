@@ -436,7 +436,9 @@ window.onclick = function (event) {
     !event.target.matches(".partyDrop") &&
     dropdownP.classList.contains("show")
   ) {
+    document.getElementById("partyFilterSearchBar").value = ''
     dropdownP.classList.remove("show");
+
   }
   //state
   let dropdownS = document.getElementById("stateFilterDiv");
@@ -444,6 +446,8 @@ window.onclick = function (event) {
     !event.target.matches(".stateDrop") &&
     dropdownS.classList.contains("show")
   ) {
+    document.getElementById("stateFilterSearchBar").value = ''
+    searchOption('stateFilterSearchBar', 'SFlist')
     dropdownS.classList.remove("show");
   }
   //rank
@@ -452,6 +456,7 @@ window.onclick = function (event) {
     !event.target.matches(".rankDrop") &&
     dropdownR.classList.contains("show")
   ) {
+    document.getElementById("rankFilterSearchBar").value = ''
     dropdownR.classList.remove("show");
   }
   return;
