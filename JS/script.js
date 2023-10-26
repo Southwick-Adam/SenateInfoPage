@@ -183,13 +183,13 @@ function generatePartyList() {
     
     //party background colours
     if (p === "Republican"){
-      newDiv.style.backgroundColor = "#FC6471";
+      newDiv.style.backgroundColor = "#e6948e";
     }
-    if (p === "Democrat"){
-      newDiv.style.backgroundColor = "#3083DC";
+    else if (p === "Democrat"){
+      newDiv.style.backgroundColor = "#9fbded";
     }
-    if (p === "Independent"){
-        newDiv.style.backgroundColor = "#CEE0DC";
+    else {
+        newDiv.style.backgroundColor = "#ebe7ab";
     }
   }
   return;

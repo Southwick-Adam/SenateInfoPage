@@ -5,21 +5,23 @@
     <title>U.S. Senate Information</title>
   </head>
   <body>
+    <!--Top Bar-->
     <div id="bar">
       <img src="../assets/seal.png" alt="Senate Seal" />
       <h1>United States Senate Information</h1>
     </div>
+    <!--Top Gap-->
     <div id="gap"></div>
+    <!--Parties Section-->
     <div>
       <h1>Parties</h1>
-      <div id="parties">
-      </div>
+      <div id="parties"></div>
     </div>
+    <!--Leaders Section-->
     <div>
       <h1>Leaders List</h1>
       <div id="leaders">
-        <table id="LTable">
-        </table>
+        <table id="LTable"></table>
       </div>
     </div>
     <!--Filters-->
@@ -38,7 +40,10 @@
           placeholder="Filter by Party"
         />
         <ul id="PFlist">
-          <li onclick="changeOptionInFilter('all', 'PFlist')" class="partyDrop filterDrop">
+          <li
+            onclick="changeOptionInFilter('all', 'PFlist')"
+            class="partyDrop filterDrop"
+          >
             <b>All</b>
           </li>
         </ul>
@@ -56,7 +61,10 @@
           placeholder="Filter by State"
         />
         <ul id="SFlist">
-          <li onclick="changeOptionInFilter('all', 'SFlist')" class="stateDrop filterDrop">
+          <li
+            onclick="changeOptionInFilter('all', 'SFlist')"
+            class="stateDrop filterDrop"
+          >
             <b>All</b>
           </li>
         </ul>
@@ -74,27 +82,32 @@
           placeholder="Filter by Rank"
         />
         <ul id="RFlist">
-          <li onclick="changeOptionInFilter('all', 'RFlist')" class="rankDrop filterDrop">
+          <li
+            onclick="changeOptionInFilter('all', 'RFlist')"
+            class="rankDrop filterDrop"
+          >
             <b>All</b>
           </li>
         </ul>
       </div>
     </div>
+    <!--Senator Div-->
     <div id="senators">
+      <!--Senator List-->
       <table id="STable">
         <th>Senators List</th>
       </table>
+      <!--Senator Info window-->
+      <div id="info">
+        <h2>Senator Info</h2>
+        <p id="office"></p>
+        <p id="birthday"></p>
+        <p id="startdate"></p>
+        <p id="twitterid"></p>
+        <p id="youtubeid"></p>
+        <a id="website"></a>
+      </div>
     </div>
-    <div id="info">
-      <h2>Senator Info</h2>
-      <p id="office"></p>
-      <p id="birthday"></p>
-      <p id="startdate"></p>
-      <p id="twitterid"></p>
-      <p id="youtubeid"></p>
-      <a id="website"></a>
-    </div>
-    <div id="test"></div>
   </body>
   <script src="../JS/script.js"></script>
 </html>
