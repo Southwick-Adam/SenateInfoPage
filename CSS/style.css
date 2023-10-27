@@ -150,7 +150,7 @@ ul {
   overflow-y: scroll;
   border: 4px solid;
   border-collapse: collapse;
-  width: 750px;
+  width: fit-content;
 }
 
 #STable td {
@@ -182,8 +182,9 @@ ul {
   display: block;
   border: 4px solid;
   padding: 10px;
-  width: fit-content;
+  width: 500px;
   height: fit-content;
+  line-height: 200%;
 }
 
 /*Bottom*/
@@ -193,4 +194,12 @@ footer {
   padding-left: 10px;
   padding-top: 3px;
   padding-bottom: 3px;
+}
+
+button {
+  width: 120px;
+  height: fit-content;
+  font-size: medium;
+  margin-bottom: 10px;
+  display: flex;
 }
