@@ -162,7 +162,7 @@ ul {
   background-color: rgb(239, 239, 239);
 }
 
-#STable tr:hover {
+#STable tr:hover:not(.selected) {
   background-color: rgb(160, 160, 160);
   color: white;
 }
@@ -172,12 +172,9 @@ ul {
   color: black;
 }
 
-/* theres a bug here where the back ground color os overwritten by the #STable tr:nth-child command*/
 .selected {
-  background-color: rgb(110, 110, 110);
-  color: white;
+  color: rgb(53, 122, 179);
 }
-
 
 /*Info Box*/
 #info {
