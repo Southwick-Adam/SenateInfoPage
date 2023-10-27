@@ -172,6 +172,13 @@ ul {
   color: black;
 }
 
+/* theres a bug here where the back ground color os overwritten by the #STable tr:nth-child command*/
+.selected {
+  background-color: rgb(110, 110, 110);
+  color: white;
+}
+
+
 /*Info Box*/
 #info {
   font-size: larger;

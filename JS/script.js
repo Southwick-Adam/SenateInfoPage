@@ -180,16 +180,14 @@ function generatePartyList() {
 
     newDiv.classList.add("newDiv");
     partyNum.classList.add("partyNum");
-    
+
     //party background colours
-    if (p === "Republican"){
+    if (p === "Republican") {
       newDiv.style.backgroundColor = "#e6948e";
-    }
-    else if (p === "Democrat"){
+    } else if (p === "Democrat") {
       newDiv.style.backgroundColor = "#9fbded";
-    }
-    else {
-        newDiv.style.backgroundColor = "#ebe7ab";
+    } else {
+      newDiv.style.backgroundColor = "#ebe7ab";
     }
   }
   return;
@@ -222,6 +220,11 @@ function generateSenatorList() {
     //add click event handler to each row
     newRow.addEventListener("click", function () {
       senSelect(senDict[newRow.id]);
+      let inSelectedArr = document.getElementsByClassName("selected");
+      if (inSelectedArr.length != 0) {
+        inSelectedArr[0].classList.remove("selected");
+      }
+      newRow.classList.add("selected");
     });
     for (a in senObj) {
       //a -> attribute
@@ -436,9 +439,8 @@ window.onclick = function (event) {
     !event.target.matches(".partyDrop") &&
     dropdownP.classList.contains("show")
   ) {
-    document.getElementById("partyFilterSearchBar").value = ''
+    document.getElementById("partyFilterSearchBar").value = "";
     dropdownP.classList.remove("show");
-
   }
   //state
   let dropdownS = document.getElementById("stateFilterDiv");
@@ -446,8 +448,8 @@ window.onclick = function (event) {
     !event.target.matches(".stateDrop") &&
     dropdownS.classList.contains("show")
   ) {
-    document.getElementById("stateFilterSearchBar").value = ''
-    searchOption('stateFilterSearchBar', 'SFlist')
+    document.getElementById("stateFilterSearchBar").value = "";
+    searchOption("stateFilterSearchBar", "SFlist");
     dropdownS.classList.remove("show");
   }
   //rank
@@ -456,7 +458,7 @@ window.onclick = function (event) {
     !event.target.matches(".rankDrop") &&
     dropdownR.classList.contains("show")
   ) {
-    document.getElementById("rankFilterSearchBar").value = ''
+    document.getElementById("rankFilterSearchBar").value = "";
     dropdownR.classList.remove("show");
   }
   return;
