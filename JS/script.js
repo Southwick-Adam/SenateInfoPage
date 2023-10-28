@@ -99,12 +99,12 @@ class senator {
     this.birthday = birthday;
     this.startdate = startdate;
     if (twitterid == null) {
-      this.twitterid = "N/A"
+      this.twitterid = "N/A";
     } else {
       this.twitterid = twitterid;
     }
     if (youtubeid == null) {
-      this.youtubeid = "N/A"
+      this.youtubeid = "N/A";
     } else {
       this.youtubeid = youtubeid;
     }
@@ -375,8 +375,10 @@ function generateFilter(option, filterListID) {
   newLi.classList.add(addClass);
   newLi.classList.add("filterDrop");
   newLi.innerHTML = option;
+  let boldClass = filterListID + "bold";
   newLi.addEventListener("click", function () {
     changeOptionInFilter(option, filterListID);
+    newLi.classList.toggle(boldClass);
   });
   document.getElementById(filterListID).appendChild(newLi);
   return;
@@ -400,6 +402,11 @@ function changeOptionInFilter(option, id) {
   let hideClass = attr + "Hide";
   //if click all, show all
   if (option == "all") {
+    let boldClass = id + "bold";
+    //WEIRD BUG
+    for (let b of document.getElementsByClassName(boldClass)) {
+     b.classList.remove(boldClass);
+    }
     allInFilter(dict, true);
     runFilter(dict, attr, hideClass);
     return;
