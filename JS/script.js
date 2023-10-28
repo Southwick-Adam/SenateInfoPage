@@ -249,6 +249,7 @@ function generateSenatorList() {
 function senSelect(s) {
   //s -> senator Object
   document.getElementById("office").innerHTML = s.office;
+  document.getElementById("birthday").innerHTML = s.birthday;
   document.getElementById("startdate").innerHTML = s.startdate;
   document.getElementById("twitterid").innerHTML = s.twitterid;
   document.getElementById("youtubeid").innerHTML = s.youtubeid;
