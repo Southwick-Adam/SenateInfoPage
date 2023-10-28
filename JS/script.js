@@ -341,20 +341,17 @@ function generateFilter(option, filterListID) {
 function changeOptionInFilter(option, id) {
   let dict;
   let attr;
-  let hideClass;
   if (id == "PFlist") {
     dict = partyFilter;
     attr = "party";
-    hideClass = "partyHide";
   } else if (id == "SFlist") {
     dict = stateFilter;
     attr = "state";
-    hideClass = "stateHide";
   } else if (id == "RFlist") {
     dict = rankFilter;
     attr = "rank";
-    hideClass = "rankHide";
   }
+  let hideClass = attr + "Hide"
   //if click all, show all
   if (option == "all") {
     allInFilter(dict, true);
@@ -409,6 +406,16 @@ function runFilter(dict, attr, hideClass) {
 function filterBtn(listID) {
   document.getElementById(listID).classList.toggle("show");
   return;
+}
+
+function resetFilters() {
+  let filtersArr = [partyFilter, stateFilter, rankFilter];
+  let attrArr = ["party", "state", "rank"];
+  for (f in filtersArr) {
+    let hideClass = attrArr[f] + "Hide";
+    allInFilter(filtersArr[f], true);
+    runFilter(filtersArr[f], attrArr[f], hideClass);
+  }
 }
 
 //triggered by text in the search bar
