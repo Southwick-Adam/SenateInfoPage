@@ -104,6 +104,7 @@
 
 #filters {
   padding: 15px;
+  padding-top: 30px;
 }
 
 ul {
@@ -125,6 +126,10 @@ ul {
   display: block;
 }
 
+.PFlistbold, .SFlistbold, .RFlistbold {
+  font-weight: bold;
+}
+
 .filterDrop {
   padding: 5px;
 }
@@ -133,16 +138,46 @@ ul {
   background-color: #ddd;
 }
 
+.searchBar {
+  height: 30px;
+  padding-left: 5px;
+}
+
+button {
+  width: 160px;
+  height: 40px;
+  font-size: large;
+  margin-top: 20px;
+  display: block;
+  border: none;
+  background-color: rgb(241, 241, 241);
+  box-shadow: 1px 8px 16px 3px rgba(0, 0, 0, 0.2);
+}
+
+#reset {
+  margin-top: 40px;
+}
+
+button:hover {
+  width: 160px;
+  height: 40px;
+  font-size: large;
+  display: block;
+  background-color: rgb(151, 180, 205);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
 /*Senate Table*/
 #STable {
   font-size: larger;
   display: block;
   height: 678px;
+  width: 100%;
   overflow-y: scroll;
   border-left: 4px solid;
   border-right: 4px solid;
   border-collapse: collapse;
-  width: fit-content;
+  
 }
 
 #STable td {
@@ -173,15 +208,18 @@ ul {
   font-size: larger;
   display: block;
   padding: 10px;
-  width: 500px;
+  width: fit-content;
+  min-width: 430px;
   height: 650px;
   line-height: 250%;
   text-align: center;
   font-weight: bold;
 }
+
 #info h2{
   margin-bottom: 20px;
 }
+
 .infoCat {
   font-weight:100;
   background-color: aliceblue;
@@ -191,9 +229,11 @@ ul {
 #info a {
   color: rgb(4, 51, 153);
   background-color: aliceblue;
+  width: 100%;
 }
+
 #info a:hover{
-  color: rgb(6, 0, 23);
+  color: rgb(125, 12, 140);
 }
 
 /*Bottom*/
@@ -203,25 +243,4 @@ footer {
   padding-left: 10px;
   padding-top: 3px;
   padding-bottom: 3px;
-}
-
-button {
-  width: 160px;
-  height: 40px;
-  font-size: large;
-  margin-bottom: 10px;
-  display: block;
-  border: none;
-  background-color: transparent;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-}
-
-button:hover {
-  width: 160px;
-  height: 40px;
-  font-size: large;
-  margin-bottom: 10px;
-  display: block;
-  background-color: aliceblue;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
