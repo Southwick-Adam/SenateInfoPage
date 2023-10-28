@@ -165,7 +165,7 @@ ul {
 }
 
 .selected {
-  color: rgb(53, 122, 179);
+  font-weight: bold;
 }
 
 /*Info Box*/
