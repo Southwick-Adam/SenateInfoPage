@@ -175,11 +175,25 @@ ul {
   padding: 10px;
   width: 500px;
   height: 650px;
-  line-height: 200%;
+  line-height: 250%;
+  text-align: center;
+  font-weight: bold;
+}
+#info h2{
+  margin-bottom: 20px;
+}
+.infoCat {
+  font-weight:100;
+  background-color: aliceblue;
+  font-size: larger;
 }
 
-.infoCat {
-  font-weight: bold;
+#info a {
+  color: rgb(4, 51, 153);
+  background-color: aliceblue;
+}
+#info a:hover{
+  color: rgb(6, 0, 23);
 }
 
 /*Bottom*/
@@ -192,9 +206,22 @@ footer {
 }
 
 button {
-  width: 120px;
-  height: fit-content;
-  font-size: medium;
+  width: 160px;
+  height: 40px;
+  font-size: large;
   margin-bottom: 10px;
-  display: flex;
+  display: block;
+  border: none;
+  background-color: transparent;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  width: 160px;
+  height: 40px;
+  font-size: large;
+  margin-bottom: 10px;
+  display: block;
+  background-color: aliceblue;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
