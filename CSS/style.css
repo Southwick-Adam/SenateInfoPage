@@ -199,7 +199,7 @@ button:hover {
   color: black;
 }
 
-.bold {
+.selected {
   font-weight: bold;
 }
 
@@ -214,7 +214,6 @@ button:hover {
   line-height: 250%;
   text-align: center;
   font-weight: bold;
-  color: black
 }
 
 #info h2{
@@ -223,17 +222,18 @@ button:hover {
 
 .infoCat {
   font-weight:100;
+  background-color: aliceblue;
   font-size: larger;
-  width: 100%;
-  color: rgb(53, 122, 179);
 }
 
 #info a {
-  color: rgb(53, 122, 179);
+  color: rgb(4, 51, 153);
+  background-color: aliceblue;
+  width: 100%;
 }
 
 #info a:hover{
-  color: rgb(4, 51, 153);
+  color: rgb(125, 12, 140);
 }
 
 /*Bottom*/
