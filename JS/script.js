@@ -98,11 +98,18 @@ class senator {
     this.office = office;
     this.birthday = birthday;
     this.startdate = startdate;
-    this.twitterid = twitterid;
-    this.youtubeid = youtubeid;
+    if (twitterid == null) {
+      this.twitterid = "N/A";
+    } else {
+      this.twitterid = twitterid;
+    }
+    if (youtubeid == null) {
+      this.youtubeid = "N/A";
+    } else {
+      this.youtubeid = youtubeid;
+    }
     this.website = website;
     this.sid = sid;
-    this.row = null;
   }
 }
 
@@ -138,6 +145,8 @@ function createLeaderObj(s) {
 //takes JSON senator object as argument
 function createSenObj(s) {
   const name = s.person.firstname + " " + s.person.lastname;
+  const dob = clarifyDate(s.person.birthday);
+  const start = clarifyDate(s.startdate);
   const sen = new senator(
     name,
     s.party,
@@ -145,14 +154,51 @@ function createSenObj(s) {
     s.person.gender_label,
     s.senator_rank_label,
     s.extra.office,
-    s.person.birthday,
-    s.startdate,
+    dob,
+    start,
     s.person.twitterid,
     s.person.youtubeid,
     s.website,
     s.person.bioguideid
   );
   return sen;
+}
+
+//takes the date in the JSON format as argument
+//returns fixed nicer date
+function clarifyDate(date) {
+  let dateArr = date.split("-");
+  let monthArr = [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let suffixArr = ["th", "st", "nd", "rd"];
+  let day;
+  if (dateArr[2][0] == "0") {
+    day = dateArr[2][1];
+  } else {
+    day = dateArr[2];
+  }
+  //add suffix to day
+  let dayEnd = Number(day) % 20;
+  if (dayEnd < 4) {
+    day += suffixArr[dayEnd];
+  } else {
+    day += "th";
+  }
+  let month = monthArr[Number(dateArr[1]) - 1];
+  const finalDate = month + " " + day + ", " + dateArr[0];
+  return finalDate;
 }
 
 //adds new senate objects to the senate dictionary object
@@ -237,7 +283,6 @@ function generateSenatorList() {
       newEntry.innerHTML = senObj[a];
       newRow.appendChild(newEntry);
     }
-    senObj.row = newRow;
     newRow.setAttribute("class", "senateListRow");
     document.getElementById("STable").appendChild(newRow);
   }
@@ -330,8 +375,10 @@ function generateFilter(option, filterListID) {
   newLi.classList.add(addClass);
   newLi.classList.add("filterDrop");
   newLi.innerHTML = option;
+  let boldClass = filterListID + "bold";
   newLi.addEventListener("click", function () {
     changeOptionInFilter(option, filterListID);
+    newLi.classList.toggle(boldClass);
   });
   document.getElementById(filterListID).appendChild(newLi);
   return;
@@ -342,22 +389,24 @@ function generateFilter(option, filterListID) {
 function changeOptionInFilter(option, id) {
   let dict;
   let attr;
-  let hideClass;
   if (id == "PFlist") {
     dict = partyFilter;
     attr = "party";
-    hideClass = "partyHide";
   } else if (id == "SFlist") {
     dict = stateFilter;
     attr = "state";
-    hideClass = "stateHide";
   } else if (id == "RFlist") {
     dict = rankFilter;
     attr = "rank";
-    hideClass = "rankHide";
   }
+  let hideClass = attr + "Hide";
   //if click all, show all
   if (option == "all") {
+    let boldClass = id + "bold";
+    //WEIRD BUG
+    for (let b of document.getElementsByClassName(boldClass)) {
+     b.classList.remove(boldClass);
+    }
     allInFilter(dict, true);
     runFilter(dict, attr, hideClass);
     return;
@@ -410,6 +459,16 @@ function runFilter(dict, attr, hideClass) {
 function filterBtn(listID) {
   document.getElementById(listID).classList.toggle("show");
   return;
+}
+
+function resetFilters() {
+  let filtersArr = [partyFilter, stateFilter, rankFilter];
+  let attrArr = ["party", "state", "rank"];
+  for (f in filtersArr) {
+    let hideClass = attrArr[f] + "Hide";
+    allInFilter(filtersArr[f], true);
+    runFilter(filtersArr[f], attrArr[f], hideClass);
+  }
 }
 
 //triggered by text in the search bar

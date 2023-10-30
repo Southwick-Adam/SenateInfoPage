@@ -37,7 +37,7 @@
           <input
             type="text"
             id="partyFilterSearchBar"
-            class="partyDrop"
+            class="partyDrop searchBar"
             onkeyup="searchOption('partyFilterSearchBar', 'PFlist')"
             placeholder="Filter by Party"
           />
@@ -59,7 +59,7 @@
           <input
             type="text"
             id="stateFilterSearchBar"
-            class="stateDrop"
+            class="stateDrop searchBar"
             onkeyup="searchOption('stateFilterSearchBar', 'SFlist')"
             placeholder="Filter by State"
           />
@@ -81,7 +81,7 @@
           <input
             type="text"
             id="rankFilterSearchBar"
-            class="rankDrop"
+            class="rankDrop searchBar"
             onkeyup="searchOption('rankFilterSearchBar', 'RFlist')"
             placeholder="Filter by Rank"
           />
@@ -94,32 +94,33 @@
             </li>
           </ul>
         </div>
+        <button onclick="resetFilters()" id="reset">Reset Filters</button>
       </div>
       <!--Senator List-->
-      <table id="STable">
-        <tr id="header">
-          <td><b>Name</b></td>
-          <td><b>Party</b></td>
-          <td><b>State</b></td>
-          <td><b>Gender</b></td>
-          <td><b>Rank</b></td>
-        </tr>
-      </table>
+        <table id="STable">
+          <tr id="header">
+            <td><b>Name</b></td>
+            <td><b>Party</b></td>
+            <td><b>State</b></td>
+            <td><b>Gender</b></td>
+            <td><b>Rank</b></td>
+          </tr>
+        </table>
       <!--Senator Info window-->
       <div id="info">
-        <h2>Senator Info</h2>
+        <h2>Senator Information</h2>
         <p>Office Adress:</p>
-        <p id="office" class="infoCat"></p>
+        <p id="office" class="infoCat">&nbsp;</p>
         <p>Date of Birth:</p>
-        <p id="birthday" class="infoCat"></p>
-        <p>Senate Start Date</p>
-        <p id="startdate" class="infoCat"></p>
+        <p id="birthday" class="infoCat">&nbsp;</p>
+        <p>Senate Start Date:</p>
+        <p id="startdate" class="infoCat">&nbsp;</p>
         <p>Twitter ID:</p>
-        <p id="twitterid" class="infoCat"></p>
+        <p id="twitterid" class="infoCat">&nbsp;</p>
         <p>Youtube ID:</p>
-        <p id="youtubeid" class="infoCat"></p>
+        <p id="youtubeid" class="infoCat">&nbsp;</p>
         <p>Website:</p>
-        <a id="website" class="infoCat"></a>
+        <a id="website" class="infoCat">&nbsp;</a>
       </div>
     </div>
     <footer>Adam Southwick & Ellen Doherty. 2023</footer>
