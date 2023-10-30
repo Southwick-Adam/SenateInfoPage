@@ -9,6 +9,10 @@
   padding-top: 20px;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /*Top Bar*/
 #bar {
   width: 100%;
@@ -229,7 +233,6 @@ button:hover {
 #info a {
   color: rgb(4, 51, 153);
   background-color: white;
-  width: 100%;
 }
 
 #info a:hover{

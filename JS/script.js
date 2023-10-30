@@ -400,12 +400,16 @@ function changeOptionInFilter(option, id) {
     attr = "rank";
   }
   let hideClass = attr + "Hide";
+  let allID = attr + "All";
+  let allElement = document.getElementById(allID);
   //if click all, show all
   if (option == "all") {
+    allElement.classList.add("bold");
     let boldClass = id + "bold";
-    //WEIRD BUG
-    for (let b of document.getElementsByClassName(boldClass)) {
-     b.classList.remove(boldClass);
+    const boldElementsLength =
+      document.getElementsByClassName(boldClass).length;
+    for (let b = 0; b < boldElementsLength; b++) {
+      document.getElementsByClassName(boldClass)[0].classList.remove(boldClass);
     }
     allInFilter(dict, true);
     runFilter(dict, attr, hideClass);
@@ -413,6 +417,7 @@ function changeOptionInFilter(option, id) {
   }
   //if attribute all is true, hide all except new choice
   if (dict.all) {
+    allElement.classList.remove("bold");
     allInFilter(dict, false);
   }
   dict[option] = !dict[option];
@@ -424,6 +429,7 @@ function changeOptionInFilter(option, id) {
     dict.count -= 1;
     //if you remove all options automatically activate all
     if (dict.count == 0) {
+      allElement.classList.add("bold");
       allInFilter(dict, true);
     }
   }
@@ -462,12 +468,9 @@ function filterBtn(listID) {
 }
 
 function resetFilters() {
-  let filtersArr = [partyFilter, stateFilter, rankFilter];
-  let attrArr = ["party", "state", "rank"];
-  for (f in filtersArr) {
-    let hideClass = attrArr[f] + "Hide";
-    allInFilter(filtersArr[f], true);
-    runFilter(filtersArr[f], attrArr[f], hideClass);
+  let listArr = ["PFlist", "SFlist", "RFlist"];
+  for (l of listArr) {
+    changeOptionInFilter("all", l);
   }
 }
 
