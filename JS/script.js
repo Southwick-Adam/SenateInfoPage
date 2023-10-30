@@ -266,11 +266,11 @@ function generateSenatorList() {
     //add click event handler to each row
     newRow.addEventListener("click", function () {
       senSelect(senDict[newRow.id]);
-      let inSelectedArr = document.getElementsByClassName("bold");
+      let inSelectedArr = document.getElementsByClassName("selected");
       if (inSelectedArr.length != 0) {
-        inSelectedArr[0].classList.remove("bold");
+        inSelectedArr[0].classList.remove("selected");
       }
-      newRow.classList.add("bold");
+      newRow.classList.add("selected");
     });
     for (a in senObj) {
       //a -> attribute
@@ -402,12 +402,10 @@ function changeOptionInFilter(option, id) {
   let hideClass = attr + "Hide";
   //if click all, show all
   if (option == "all") {
-    let allID = attr + "All";
-    document.getElementById(allID).classList.add("bold");
     let boldClass = id + "bold";
     //WEIRD BUG
     for (let b of document.getElementsByClassName(boldClass)) {
-      b.classList.remove(boldClass);
+     b.classList.remove(boldClass);
     }
     allInFilter(dict, true);
     runFilter(dict, attr, hideClass);
