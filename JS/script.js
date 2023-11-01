@@ -1,5 +1,5 @@
 // Use the fetch() method to retrieve the JSON data
-fetch("../JSON/senators.json")
+fetch("JSON/senators.json")
   .then((response) => {
     if (!response.ok) {
       throw new Error("Network Response Problem");
@@ -61,6 +61,9 @@ function func(data) {
   stateFilter.count = 0;
   rankFilter.count = 0;
   //END TEST
+
+  document.getElementById("main").classList.remove("notLoaded");
+  document.getElementById("loading").classList.add("notLoaded");
 
   return;
 }
