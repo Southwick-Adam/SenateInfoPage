@@ -4,6 +4,10 @@
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+.notLoaded {
+  display: none;
+}
+
 .title {
   padding-left: 40px;
   padding-top: 20px;
@@ -34,7 +38,6 @@
   height: 80px;
   padding: 10px;
   padding-left: 25px;
-  padding-right: 10;
 }
 
 .gap {
@@ -145,6 +148,10 @@ ul {
 .searchBar {
   height: 30px;
   padding-left: 5px;
+}
+
+.all {
+  font-size: 18px;
 }
 
 button {
