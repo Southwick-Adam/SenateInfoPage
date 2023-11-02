@@ -58,8 +58,7 @@
 
 #parties {
   display: flex;
-  width: 100%;
-  margin: 10px
+  margin: 10px;
 }
 
 .newDiv {
@@ -224,7 +223,7 @@ button:hover {
   font-size: larger;
   display: block;
   padding: 10px;
-  width: fit-content;
+  width: 100%;
   min-width: 430px;
   height: 650px;
   line-height: 250%;
@@ -259,6 +258,37 @@ footer {
   padding-top: 3px;
   padding-bottom: 3px;
 }
+@media only screen and (max-width: 800px) {
+ #senators {
+    display: flex;
+    flex-direction: column;
+    width: 85vw;
+ }
+ #filters {
+  padding-top: 10px;
+ }
+ button{
+  width: 100%;
+  margin-top: 10px;
+ }
+ #reset {
+  margin-top: 25px;
+ }
+ button:hover {
+  width: 100%;
+ }
+ #sTable {
+  height: 300px;
+  margin-bottom: 10px;
+ }
+ #info {
+  text-align: center;
+  display: contents;
+  border: 10px solid black;
+  margin-top: 10px;
+ }
+}
+
 @media only screen and (max-width: 500px) {
   #parties {
     display: flex;
