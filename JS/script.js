@@ -10,6 +10,7 @@ fetch("JSON/senators.json")
   .catch((error) => {
     console.error(error); //send the error to the console
     alert(error);
+    document.getElementById("loading").innerHTML = "Failed to Load.";
   });
 
 //function we send JSON objects to
@@ -55,12 +56,12 @@ function func(data) {
   stateFilter.all = true;
   rankFilter.all = true;
 
-  //TEST
   //add selected counter to each filter
   partyFilter.count = 0;
   stateFilter.count = 0;
   rankFilter.count = 0;
-  //END TEST
+
+  fixStripes();
 
   document.getElementById("main").classList.remove("notLoaded");
   document.getElementById("loading").classList.add("notLoaded");
@@ -286,7 +287,7 @@ function generateSenatorList() {
       newEntry.innerHTML = senObj[a];
       newRow.appendChild(newEntry);
     }
-    newRow.setAttribute("class", "senateListRow");
+    newRow.classList.add("senateListRow");
     document.getElementById("STable").appendChild(newRow);
   }
   return;
@@ -461,7 +462,31 @@ function runFilter(dict, attr, hideClass) {
       document.getElementById(senObj.sid).classList.add(hideClass);
     }
   }
+  fixStripes();
   return;
+}
+
+//goes through showing senate list items and adds stipes
+function fixStripes() {
+  let showingArr = [];
+  let bool = true;
+  for (let i of document.getElementsByClassName("senateListRow")) {
+    if (
+      !i.classList.contains("partyHide") &&
+      !i.classList.contains("stateHide") &&
+      !i.classList.contains("rankHide")
+    ) {
+      showingArr.push(i);
+    }
+  }
+  for (let j of showingArr) {
+    if (bool) {
+      j.style.backgroundColor = "rgb(239, 239, 239)";
+    } else {
+      j.style.backgroundColor = "white";
+    }
+    bool = !bool;
+  }
 }
 
 //open/close dropdown menus for filters

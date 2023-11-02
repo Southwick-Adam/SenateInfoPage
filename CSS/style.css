@@ -188,7 +188,6 @@ button:hover {
   border-left: 4px solid;
   border-right: 4px solid;
   border-collapse: collapse;
-  
 }
 
 #STable td {
@@ -196,13 +195,17 @@ button:hover {
   width: 100%;
 }
 
-#STable tr:nth-child(even) {
-  background-color: rgb(239, 239, 239);
+#STable tr {
+  border-top: solid;
+  border-bottom: solid;
+  border-top-color: white;
+  border-bottom-color: rgb(239, 239, 239);
 }
 
 #STable tr:hover:not(.selected) {
-  background-color: rgb(160, 160, 160);
-  color: white;
+  box-shadow: rgba(0, 0, 0, 1) 0px 0px 8px;
+  border-color: rgb(50, 10, 67);
+  color: rgb(50, 10, 67);
 }
 
 #STable tr:first-child:hover {
