@@ -25,6 +25,7 @@
   align-items: center;
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+  font-size: 2vw;
 }
 
 #bar h1 {
@@ -57,21 +58,22 @@
 
 #parties {
   display: flex;
-  width: 100%;
+  margin: 10px;
 }
 
 .newDiv {
   border: 4px solid black;
-  margin: 25px;
+  margin: 2vw;
   padding: 10px;
   flex: 1;
   text-align: center;
   line-height: 200%;
-  font-size: xx-large;
+  font-size: 4vw;
+  width: 20vw;
 }
 
 .partyNum {
-  font-size: xxx-large;
+  font-size: 6vw;
 }
 
 /*Leaders Table*/
@@ -80,6 +82,7 @@
   margin: 25px;
   border: 4px solid;
   padding: 30px;
+  overflow-x: auto;
 }
 
 #LTable {
@@ -105,6 +108,7 @@
   margin: 25px;
   display: flex;
   border: 4px solid;
+  width: 100%;
 }
 
 /*Filters*/
@@ -222,7 +226,7 @@ button:hover {
   font-size: larger;
   display: block;
   padding: 10px;
-  width: fit-content;
+  width: 100%;
   min-width: 430px;
   height: 650px;
   line-height: 250%;
@@ -257,3 +261,44 @@ footer {
   padding-top: 3px;
   padding-bottom: 3px;
 }
+@media only screen and (max-width: 800px) {
+ #senators {
+    display: flex;
+    flex-direction: column;
+    width: 85vw;
+ }
+ #filters {
+  padding-top: 10px;
+ }
+ button{
+  width: 100%;
+  margin-top: 10px;
+ }
+ #reset {
+  margin-top: 25px;
+ }
+ button:hover {
+  width: 100%;
+ }
+ #sTable {
+  height: 300px;
+  margin-bottom: 10px;
+ }
+ #info {
+  text-align: center;
+  display: contents;
+  border: 10px solid black;
+  margin-top: 10px;
+ }
+}
+
+@media only screen and (max-width: 500px) {
+  #parties {
+    display: flex;
+    flex-direction: column;
+  }
+  .newDiv {
+    width: 85vw;
+  }
+}
+
