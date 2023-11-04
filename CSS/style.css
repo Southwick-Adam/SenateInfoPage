@@ -184,7 +184,7 @@ button:hover {
 
 /*Senate Table*/
 #STable {
-  font-size: larger;
+  font-size: large;
   display: block;
   height: 678px;
   width: 100%;
@@ -195,7 +195,7 @@ button:hover {
 }
 
 #STable td {
-  padding: 15px 25px 15px 25px;
+  padding: 15px 25px;
   width: 100%;
 }
 
@@ -261,12 +261,20 @@ footer {
   padding-top: 3px;
   padding-bottom: 3px;
 }
-@media only screen and (max-width: 800px) {
+
+@media only screen and (max-width: 1050px) {
  #senators {
     display: flex;
     flex-direction: column;
-    width: 85vw;
+    width: 90vw;
  }
+ #STable {
+  border-top: 4px solid;
+  border-bottom: 4px solid;
+  border-left: 0px;
+  border-right: 0px;
+}
+
  #filters {
   padding-top: 10px;
  }
@@ -290,6 +298,54 @@ footer {
   border: 10px solid black;
   margin-top: 10px;
  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #bar {
+    font-size: 25px;
+  }
+  .newDiv {
+    font-size: 50px;
+  }
+  .partyNum {
+    font-size: 75px;
+  }
+}
+
+@media only screen and (max-width: 1450px) {
+  #STable td {
+    padding: 15px 1vw;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  #STable td {
+    padding: 15px 3px;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  #STable td {
+    padding: 15px 25px;
+  }
+}
+
+@media only screen and (max-width: 730px) {
+  #STable td {
+    padding: 15px 10px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  #STable td {
+    padding: 15px 3px;
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  #leaders {
+    padding: 5px;
+  }
 }
 
 @media only screen and (max-width: 500px) {
